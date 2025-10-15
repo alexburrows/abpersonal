@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Alex Burrows - Personal Portfolio
 
-## Getting Started
+A modern, professional portfolio website built with Next.js 15, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+## 🚀 Tech Stack
+
+- **Framework:** Next.js 15
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Deployment:** Netlify
+
+## 🛠️ Features
+
+- ✨ Modern, clean, and professional design
+- 📱 Fully responsive (mobile-first approach)
+- 🎨 Uses primary brand color (#00509e)
+- 🌓 Dark mode support
+- ⚡ Optimized performance with Next.js 15
+- 🎯 SEO-friendly with proper metadata
+- 👔 Professional CTO & Solution Architect positioning
+- 🏢 Showcase of enterprise clients (PwC, BBC, Pfizer, Toyota, etc.)
+- 💼 Expertise and leadership areas
+- 🔗 Integration with GitHub profile and projects
+- 📝 Blog section featuring Medium articles
+- 🎯 Drupal.org contributions showcase
+- 📊 GitHub achievements and statistics
+- 📧 Contact section with social links (GitHub, LinkedIn, Medium, Drupal.org)
+- 📱 Mobile-friendly navigation with hamburger menu
+- ⬆️ Scroll-to-top button
+
+## 📦 Installation
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🌐 Deployment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This site is configured for deployment on Netlify:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Connect your GitHub repository to Netlify
+2. Netlify will automatically detect the Next.js configuration
+3. Deploy settings are configured in `netlify.toml`
 
-## Learn More
+Alternatively, you can deploy manually:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Then upload the `.next` directory to your Netlify site.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📝 Customization
 
-## Deploy on Vercel
+### Update Personal Information
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Edit the following components in `/components`:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `hero.tsx` - Main introduction, title, and call-to-action
+- `expertise.tsx` - Leadership areas and expertise domains
+- `clients.tsx` - Enterprise clients and organizations
+- `tech-stack.tsx` - Your skills and technologies
+- `achievements.tsx` - GitHub statistics and achievements
+- `drupal-contributions.tsx` - Drupal.org contributions and projects
+- `projects.tsx` - Featured GitHub repositories
+- `blog.tsx` - Medium articles and blog posts
+- `contact.tsx` - Contact information and social links
+
+### Adding Your Medium Articles
+
+To add your actual Medium articles, edit `/components/blog.tsx`:
+
+1. Replace the placeholder articles in the `articles` array with your real Medium posts
+2. Update each article object with:
+   - `title`: Article title
+   - `excerpt`: Brief description
+   - `date`: Publication date (YYYY-MM-DD format)
+   - `readTime`: Estimated reading time
+   - `tags`: Array of relevant tags
+   - `url`: Full URL to the Medium article
+
+Example:
+```tsx
+{
+  title: "Your Article Title",
+  excerpt: "Brief description of your article...",
+  date: "2024-03-15",
+  readTime: "5 min read",
+  tags: ["Next.js", "React"],
+  url: "https://medium.com/@aburrows/your-article-slug"
+}
+```
+
+**Tip**: You can fetch your Medium RSS feed at `https://medium.com/feed/@aburrows` to get your latest articles programmatically.
+
+### Styling
+
+The primary color is defined in `/app/globals.css`:
+
+```css
+--primary: #00509e;
+--primary-dark: #003d7a;
+```
+
+## 📄 License
+
+© 2024 Alex Burrows. All rights reserved.
+
+## 🔗 Links
+
+- [GitHub](https://github.com/alexburrows)
+- [LinkedIn](https://www.linkedin.com/in/alexburrows/)
+- [Digidrop](https://digidrop.io)
