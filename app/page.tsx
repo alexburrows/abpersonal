@@ -12,15 +12,16 @@ import Footer from "@/components/footer";
 import ScrollToTop from "@/components/scroll-to-top";
 import BookMeModal from "@/components/book-me-modal";
 import ParallaxWrapper from "@/components/parallax-wrapper";
-import DynamicGradientBg from "@/components/dynamic-gradient-bg";
 
 export default function Home() {
   return (
-    <div className="font-sans relative">
-      <DynamicGradientBg />
+    <div className="font-sans relative overflow-x-hidden">
+      {/* Single gradient background flowing from top to bottom */}
+      <div className="fixed inset-0 bg-gradient-to-b from-slate-900 via-blue-950 via-30% via-cyan-950 via-50% via-slate-950 via-70% to-slate-900 -z-50"></div>
+      
       <Header />
       <ParallaxWrapper>
-        <main className="relative">
+        <main className="overflow-x-hidden">
           <Hero />
           <Expertise />
           <Clients />

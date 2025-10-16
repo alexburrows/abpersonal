@@ -50,48 +50,52 @@ export default function BookMeModal() {
 
   return (
     <>
-      {/* Floating Book Me Button */}
+      {/* Floating Consultation Button */}
       <button
         onClick={() => setIsOpen(true)}
         data-book-me-modal
-        className="fixed bottom-8 left-8 z-50 px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl shadow-2xl hover:shadow-emerald-500/50 hover:scale-105 transition-all duration-300 font-bold flex items-center gap-2 border-2 border-white/30"
+        className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 px-6 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-2xl shadow-2xl hover:shadow-cyan-500/60 hover:scale-110 transition-all duration-300 font-bold flex items-center gap-3 border-2 border-white/20 group"
+        aria-label="Book a consultation"
       >
-        <FontAwesomeIcon icon={faCalendar} className="w-5 h-5" />
-        <span className="hidden sm:inline">Book Me</span>
+        <FontAwesomeIcon icon={faCalendar} className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+        <span className="hidden sm:inline text-base">Book Consultation</span>
+        <span className="sm:hidden text-sm">Book</span>
       </button>
 
       {/* Modal Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm animate-fadeIn">
-          <div className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/90 backdrop-blur-md animate-fadeIn">
+          <div className="relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             {/* Close Button */}
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
+              className="absolute top-6 right-6 z-10 p-3 text-white hover:text-white hover:bg-white/20 rounded-xl transition-all duration-200 hover:scale-110"
+              aria-label="Close modal"
             >
-              <FontAwesomeIcon icon={faTimes} className="w-5 h-5" />
+              <FontAwesomeIcon icon={faTimes} className="w-6 h-6" />
             </button>
 
             {/* Header */}
-            <div className="bg-gradient-to-br from-blue-600 via-cyan-600 to-teal-600 p-8 rounded-t-2xl">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-3 bg-white/20 backdrop-blur-sm rounded-lg">
+            <div className="bg-gradient-to-br from-cyan-600 via-blue-600 to-blue-700 p-8 sm:p-10 rounded-t-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+              <div className="relative flex items-start gap-4">
+                <div className="flex-shrink-0 p-4 bg-white/20 backdrop-blur-sm rounded-2xl shadow-lg">
                   <FontAwesomeIcon icon={faCalendar} className="w-8 h-8 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-3xl font-extrabold text-white">Book a Consultation</h2>
-                  <p className="text-white/80 font-medium">Let&apos;s discuss your project</p>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-2">Book a Consultation</h2>
+                  <p className="text-white/90 font-medium text-lg">Let&apos;s discuss your enterprise project</p>
                 </div>
               </div>
             </div>
 
             {/* Content */}
-            <div className="p-8">
+            <div className="p-8 sm:p-10">
               {!isSubmitted ? (
                 <>
-                  <p className="text-slate-700 mb-6 leading-relaxed font-medium">
+                  <p className="text-slate-700 text-lg mb-8 leading-relaxed font-medium">
                     Interested in enterprise solutions, technical leadership, or AI integration? 
-                    Fill out the form below and I&apos;ll get back to you within 24 hours.
+                    Fill out the form below and I&apos;ll respond within 24 hours.
                   </p>
 
                   <form onSubmit={handleSubmit} className="space-y-5">
@@ -169,19 +173,21 @@ export default function BookMeModal() {
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 font-bold flex items-center justify-center gap-2"
+                      className="w-full px-8 py-5 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-xl hover:shadow-2xl hover:shadow-cyan-500/50 hover:scale-105 transition-all duration-300 font-bold text-lg flex items-center justify-center gap-3 group"
                     >
-                      <FontAwesomeIcon icon={faPaperPlane} className="w-5 h-5" />
-                      Send Inquiry
+                      <FontAwesomeIcon icon={faPaperPlane} className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      Send Consultation Request
                     </button>
                   </form>
 
-                  <p className="text-sm text-slate-500 mt-4 text-center">
-                    Or email directly at{" "}
-                    <a href="mailto:hello@digidrop.io" className="text-blue-600 font-bold hover:text-cyan-600">
-                      hello@digidrop.io
-                    </a>
-                  </p>
+                  <div className="mt-6 pt-6 border-t border-slate-200">
+                    <p className="text-sm text-slate-600 text-center font-medium">
+                      Prefer email?{" "}
+                      <a href="mailto:hello@digidrop.io" className="text-cyan-600 font-bold hover:text-blue-600 underline decoration-2 underline-offset-2">
+                        hello@digidrop.io
+                      </a>
+                    </p>
+                  </div>
                 </>
               ) : (
                 <div className="text-center py-8">

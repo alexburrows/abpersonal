@@ -38,7 +38,7 @@ export default function DrupalSection() {
     },
     {
       title: "Maintenance & Support",
-      description: "Ongoing maintenance, security updates, and performance optimization to keep your Drupal site running smoothly.",
+      description: "Ongoing maintenance, security updates, and performance optimisation to keep your Drupal site running smoothly.",
       icon: faWrench,
       color: "from-emerald-500 to-teal-600",
       features: [
@@ -99,9 +99,7 @@ export default function DrupalSection() {
   ];
 
   return (
-    <section ref={sectionRef} className="py-20 px-4 sm:px-6 lg:px-8 text-white relative overflow-visible">
-      {/* Dark overlay for Drupal section */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/95 via-blue-950/95 to-slate-950/95 -z-10"></div>
+    <section ref={sectionRef} className="py-20 px-4 sm:px-6 lg:px-8 text-white relative overflow-hidden">
       
       {/* Large Drupal logo - positioned to show half, extending off left edge */}
       <div className="absolute left-0 top-0 h-full flex items-center opacity-40 pointer-events-none z-0">

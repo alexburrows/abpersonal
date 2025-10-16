@@ -42,8 +42,6 @@ export default function AIExpertise() {
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
-      {/* Dark overlay for AI section */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/95 via-gray-900/95 to-slate-900/95 -z-10"></div>
       {/* Decorative elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-gray-600/20 to-slate-600/20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-slate-600/20 to-gray-700/20 rounded-full blur-3xl"></div>

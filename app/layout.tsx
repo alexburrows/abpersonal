@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Alex Burrows | CTO & Solution Architect",
-  description: "CTO and Solution Architect specializing in TypeScript, React, Next.js, and Drupal. Delivering enterprise solutions for PwC, BBC, Pfizer, Toyota, and more.",
+  description: "CTO and Solution Architect specialising in TypeScript, React, Next.js, and Drupal. Delivering enterprise solutions for PwC, BBC, Pfizer, Toyota, and more.",
   keywords: ["Alex Burrows", "CTO", "Solution Architect", "Technical Leadership", "TypeScript", "React", "Next.js", "Drupal", "Enterprise Solutions", "Web Development"],
   authors: [{ name: "Alex Burrows" }],
   openGraph: {
