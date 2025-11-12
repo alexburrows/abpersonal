@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
   faCalendar,
@@ -11,8 +11,10 @@ import {
   faTimes,
   faCheckCircle,
   faTriangleExclamation,
-  faClock
+  faClock,
+  faArrowUp
 } from "@fortawesome/free-solid-svg-icons";
+import gsap from "gsap";
 
 const FORM_NAME = "consultation";
 const initialFormState = {
@@ -38,6 +40,10 @@ export default function BookMeModal() {
   const [honeypot, setHoneypot] = useState("");
   const [formData, setFormData] = useState(initialFormState);
   const today = new Date().toISOString().split("T")[0];
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const buttonTextRef = useRef<HTMLSpanElement>(null);
+  const hasMeasuredButtonText = useRef(false);
+  const buttonTextWidthRef = useRef(0);
 
   const showDrawer = useCallback(() => {
     setIsVisible(true);
@@ -61,6 +67,45 @@ export default function BookMeModal() {
     window.addEventListener("open-consultation-modal", handleOpen);
     return () => window.removeEventListener("open-consultation-modal", handleOpen);
   }, [showDrawer]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 320);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const textEl = buttonTextRef.current;
+    if (!textEl || hasMeasuredButtonText.current) {
+      return;
+    }
+
+    buttonTextWidthRef.current = textEl.scrollWidth;
+    gsap.set(textEl, {
+      width: showScrollTop ? 0 : buttonTextWidthRef.current,
+      marginLeft: showScrollTop ? 0 : 12,
+      opacity: showScrollTop ? 0 : 1
+    });
+    hasMeasuredButtonText.current = true;
+  }, [showScrollTop]);
+
+  useEffect(() => {
+    const textEl = buttonTextRef.current;
+    if (!textEl || !hasMeasuredButtonText.current) {
+      return;
+    }
+
+    gsap.to(textEl, {
+      width: showScrollTop ? 0 : buttonTextWidthRef.current,
+      marginLeft: showScrollTop ? 0 : 12,
+      opacity: showScrollTop ? 0 : 1,
+      duration: 0.35,
+      ease: "power2.out"
+    });
+  }, [showScrollTop]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -155,19 +200,50 @@ export default function BookMeModal() {
     }));
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
   return (
     <>
       {/* Floating Consultation Button */}
-      <button
-        onClick={showDrawer}
-        data-book-me-modal
-        className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-40 px-6 py-4 bg-gradient-to-r from-black via-blue-950 to-blue-800 text-white rounded-2xl shadow-2xl hover:shadow-blue-700/60 hover:scale-110 transition-all duration-300 font-bold flex items-center gap-3 border-2 border-white/10 group"
-        aria-label="Book a consultation"
-      >
-        <FontAwesomeIcon icon={faCalendar} className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-        <span className="hidden sm:inline text-base">Book Consultation</span>
-        <span className="sm:hidden text-sm">Book</span>
-      </button>
+      <div className="fixed bottom-6 right-6 z-40 sm:bottom-8 sm:right-8">
+        <div
+          className={`flex overflow-hidden rounded-2xl border-2 border-white/10 bg-black/60 shadow-2xl transition-transform duration-300 ${
+            showScrollTop ? "hover:scale-105" : "hover:scale-110"
+          }`}
+        >
+          {showScrollTop && (
+            <button
+              type="button"
+              onClick={scrollToTop}
+              className="flex items-center justify-center border-r border-white/10 bg-gradient-to-b from-black via-slate-950 to-slate-800 px-4 py-4 text-white transition duration-300 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+              aria-label="Scroll to top"
+            >
+              <FontAwesomeIcon icon={faArrowUp} className="h-5 w-5" />
+            </button>
+          )}
+          <button
+            onClick={showDrawer}
+            data-book-me-modal
+            className="group flex flex-1 items-center bg-gradient-to-b from-black via-slate-950 to-slate-800 px-6 py-4 font-bold text-white transition duration-300 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+            aria-label="Book a consultation"
+          >
+            <FontAwesomeIcon icon={faCalendar} className="h-5 w-5 transition-transform group-hover:rotate-12" />
+            <span
+              ref={buttonTextRef}
+              className="ml-3 inline-flex items-center overflow-hidden whitespace-nowrap"
+              style={{ willChange: "width, margin-left, opacity" }}
+            >
+              <span className="hidden text-base sm:inline">Book Consultation</span>
+              <span className="text-sm sm:hidden">Book</span>
+            </span>
+          </button>
+        </div>
+      </div>
 
       {isVisible && (
         <div className="fixed inset-0 z-[60] flex justify-end">
