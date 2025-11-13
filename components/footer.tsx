@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FooterEmailButton } from "./footer-email-button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
   faGithub,
@@ -52,9 +53,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2 text-cyan-200 font-semibold">
                 <FontAwesomeIcon icon={faEnvelope} className="w-4 h-4 text-cyan-400" />
-                <a href="mailto:hello@digidrop.io" className="hover:text-cyan-300 transition-colors">
-                  hello@digidrop.io
-                </a>
+                <FooterEmailButton className="hover:text-cyan-300 transition-colors" />
               </div>
             </div>
           </div>

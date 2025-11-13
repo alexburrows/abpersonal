@@ -9,7 +9,6 @@ import BookSection from "@/components/book-section";
 import TechStack from "@/components/tech-stack";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
-import ScrollToTop from "@/components/scroll-to-top";
 import BookMeModal from "@/components/book-me-modal";
 import ParallaxWrapper from "@/components/parallax-wrapper";
 
@@ -34,7 +33,6 @@ export default function Home() {
         </main>
       </ParallaxWrapper>
       <Footer />
-      <ScrollToTop />
       <BookMeModal />
     </div>
   );
