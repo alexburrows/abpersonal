@@ -364,7 +364,7 @@ export default function BookMeModal() {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full rounded-xl border-2 border-slate-700 bg-slate-900/40 px-4 py-3 font-medium text-white outline-none transition-all placeholder-slate-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/20
+                        className="w-full rounded-xl border-2 border-slate-700 bg-slate-900/40 px-4 py-3 font-medium text-white outline-none transition-all placeholder-slate-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/20"
                       />
                     </div>
 
