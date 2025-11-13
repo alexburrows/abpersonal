@@ -332,7 +332,6 @@ export default function BookMeModal() {
                         value={formData.name}
                         onChange={handleChange}
                         className="w-full rounded-xl border-2 border-slate-700 bg-slate-900/40 px-4 py-3 font-medium text-white outline-none transition-all placeholder-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20"
-                        placeholder="John Doe"
                       />
                     </div>
 
@@ -350,7 +349,6 @@ export default function BookMeModal() {
                         value={formData.email}
                         onChange={handleChange}
                         className="w-full rounded-xl border-2 border-slate-700 bg-slate-900/40 px-4 py-3 font-medium text-white outline-none transition-all placeholder-slate-400 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/20"
-                        placeholder="john@company.com"
                       />
                     </div>
 
@@ -366,8 +364,7 @@ export default function BookMeModal() {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full rounded-xl border-2 border-slate-700 bg-slate-900/40 px-4 py-3 font-medium text-white outline-none transition-all placeholder-slate-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/20"
-                        placeholder="Your Company"
+                        className="w-full rounded-xl border-2 border-slate-700 bg-slate-900/40 px-4 py-3 font-medium text-white outline-none transition-all placeholder-slate-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/20
                       />
                     </div>
 
@@ -410,7 +407,7 @@ export default function BookMeModal() {
                         className="w-full rounded-xl border-2 border-slate-700 bg-slate-900/40 px-4 py-3 font-medium text-white outline-none transition-all placeholder-slate-400 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/20"
                       />
                       <p className="mt-2 text-sm font-medium text-slate-400">
-                        Please choose a time between 09:00 and 17:00 in your local timezone. I&apos;ll confirm availability shortly.
+                        Please choose a time between 09:00 and 17:00. I&apos;ll confirm availability shortly.
                       </p>
                     </div>
 
