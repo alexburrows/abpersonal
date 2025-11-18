@@ -117,13 +117,15 @@ export default function BookMeModal() {
     setErrorMessage(null);
 
     try {
-      // Submit directly to Netlify Forms endpoint (works with Next.js runtime)
+      // Submit directly to Netlify Forms endpoint
+      // Netlify will process forms submitted to the site root with form-name
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: encode({
           "form-name": FORM_NAME,
-          ...formData
+          ...formData,
+          "bot-field": honeypot
         })
       });
 
