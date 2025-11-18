@@ -209,6 +209,25 @@ export default function BookMeModal() {
 
   return (
     <>
+      {/* Hidden Netlify form for build-time parsing */}
+      <form
+        name={FORM_NAME}
+        method="POST"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+        hidden
+        aria-hidden="true"
+      >
+        <input type="hidden" name="form-name" value={FORM_NAME} />
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="company" />
+        <input type="date" name="preferredDate" />
+        <input type="time" name="preferredTime" />
+        <textarea name="message" />
+        <input type="text" name="bot-field" autoComplete="off" />
+      </form>
+
       {/* Floating Consultation Button */}
       <div className="fixed bottom-6 right-6 z-40 sm:bottom-8 sm:right-8">
         <div
