@@ -117,12 +117,15 @@ export default function BookMeModal() {
     setErrorMessage(null);
 
     try {
+      // Submit directly to Netlify Forms endpoint
+      // Netlify will process forms submitted to the site root with form-name
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: encode({
           "form-name": FORM_NAME,
-          ...formData
+          ...formData,
+          "bot-field": honeypot
         })
       });
 
@@ -209,25 +212,6 @@ export default function BookMeModal() {
 
   return (
     <>
-      {/* Hidden Netlify form for build-time parsing */}
-      <form
-        name={FORM_NAME}
-        method="POST"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
-        hidden
-        aria-hidden="true"
-      >
-        <input type="hidden" name="form-name" value={FORM_NAME} />
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <input type="text" name="company" />
-        <input type="date" name="preferredDate" />
-        <input type="time" name="preferredTime" />
-        <textarea name="message" />
-        <input type="text" name="bot-field" autoComplete="off" />
-      </form>
-
       {/* Floating Consultation Button */}
       <div className="fixed bottom-6 right-6 z-40 sm:bottom-8 sm:right-8">
         <div
@@ -318,8 +302,6 @@ export default function BookMeModal() {
                   <form
                     name={FORM_NAME}
                     method="POST"
-                    data-netlify="true"
-                    data-netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
                     className="space-y-5"
                   >
