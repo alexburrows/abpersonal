@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Netlify Forms</title>
+</head>
+<body>
+  <!-- Static form for Netlify to detect at build time -->
+  <form name="consultation" netlify netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="consultation" />
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input type="text" name="company" />
+    <input type="date" name="preferredDate" />
+    <input type="time" name="preferredTime" />
+    <textarea name="message"></textarea>
+    <input type="text" name="bot-field" />
+  </form>
+</body>
+</html>
+
