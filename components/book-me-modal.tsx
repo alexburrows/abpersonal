@@ -229,7 +229,7 @@ export default function BookMeModal() {
                       Book a Consultation
                     </h2>
                     <p className="text-lg font-medium text-white/90">
-                      Let&apos;s discuss your enterprise project.
+                      Let&apos;s discuss your next project.
                     </p>
                   </div>
                 </div>
