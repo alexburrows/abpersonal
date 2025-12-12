@@ -11,7 +11,6 @@ import {
   faTimes,
   faCheckCircle,
   faTriangleExclamation,
-  faClock,
   faArrowUp
 } from "@fortawesome/free-solid-svg-icons";
 import gsap from "gsap";
@@ -21,8 +20,6 @@ const initialFormState = {
   name: "",
   email: "",
   company: "",
-  preferredDate: "",
-  preferredTime: "",
   message: ""
 };
 
@@ -39,7 +36,6 @@ export default function BookMeModal() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [honeypot, setHoneypot] = useState("");
   const [formData, setFormData] = useState(initialFormState);
-  const today = new Date().toISOString().split("T")[0];
   const [showScrollTop, setShowScrollTop] = useState(false);
   const buttonTextRef = useRef<HTMLSpanElement>(null);
   const hasMeasuredButtonText = useRef(false);
@@ -152,56 +148,6 @@ export default function BookMeModal() {
     }));
   };
 
-  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-
-    if (value) {
-      const day = new Date(`${value}T00:00:00`);
-      const dayNumber = day.getDay();
-      const isWeekend = dayNumber === 0 || dayNumber === 6;
-
-      if (isWeekend) {
-        setErrorMessage("Please choose a weekday for your consultation.");
-        setFormData((prev) => ({
-          ...prev,
-          preferredDate: ""
-        }));
-        return;
-      }
-    }
-
-    setErrorMessage(null);
-    setFormData((prev) => ({
-      ...prev,
-      preferredDate: value
-    }));
-  };
-
-  const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-
-    if (value) {
-      const [hours, minutes] = value.split(":").map(Number);
-      const totalMinutes = hours * 60 + minutes;
-      const startMinutes = 9 * 60;
-      const endMinutes = 17 * 60;
-
-      if (Number.isFinite(totalMinutes) && (totalMinutes < startMinutes || totalMinutes > endMinutes)) {
-        setErrorMessage("Please choose a time between 09:00 and 17:00.");
-        setFormData((prev) => ({
-          ...prev,
-          preferredTime: ""
-        }));
-        return;
-      }
-    }
-
-    setErrorMessage(null);
-    setFormData((prev) => ({
-      ...prev,
-      preferredTime: value
-    }));
-  };
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -296,7 +242,7 @@ export default function BookMeModal() {
                 <>
                   <p className="text-lg font-medium leading-relaxed text-slate-200">
                     Interested in enterprise solutions, technical leadership, or AI integration? Fill out the form
-                    below and I&apos;ll respond within 24 hours.
+                    below and I&apos;ll get back to you to arrange a consultation.
                   </p>
 
                   <form
@@ -367,49 +313,6 @@ export default function BookMeModal() {
                         onChange={handleChange}
                         className="w-full rounded-xl border-2 border-slate-700 bg-slate-900/40 px-4 py-3 font-medium text-white outline-none transition-all placeholder-slate-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/20"
                       />
-                    </div>
-
-                    {/* Preferred Date Field */}
-                    <div>
-                      <label htmlFor="preferredDate" className="mb-2 block text-sm font-bold text-slate-200">
-                        <FontAwesomeIcon icon={faCalendar} className="mr-2 h-4 w-4 text-blue-200" />
-                        Preferred Date *
-                      </label>
-                      <input
-                        type="date"
-                        id="preferredDate"
-                        name="preferredDate"
-                        min={today}
-                        required
-                        value={formData.preferredDate}
-                        onChange={handleDateChange}
-                        className="w-full rounded-xl border-2 border-slate-700 bg-slate-900/40 px-4 py-3 font-medium text-white outline-none transition-all placeholder-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20"
-                      />
-                      <p className="mt-2 text-sm font-medium text-slate-400">
-                        Consultations are available Monday to Friday. Weekends are excluded.
-                      </p>
-                    </div>
-
-                    {/* Preferred Time Field */}
-                    <div>
-                      <label htmlFor="preferredTime" className="mb-2 block text-sm font-bold text-slate-200">
-                        <FontAwesomeIcon icon={faClock} className="mr-2 h-4 w-4 text-blue-200" />
-                        Preferred Time *
-                      </label>
-                      <input
-                        type="time"
-                        id="preferredTime"
-                        name="preferredTime"
-                        min="09:00"
-                        max="17:00"
-                        required
-                        value={formData.preferredTime}
-                        onChange={handleTimeChange}
-                        className="w-full rounded-xl border-2 border-slate-700 bg-slate-900/40 px-4 py-3 font-medium text-white outline-none transition-all placeholder-slate-400 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/20"
-                      />
-                      <p className="mt-2 text-sm font-medium text-slate-400">
-                        Please choose a time between 09:00 and 17:00. I&apos;ll confirm availability shortly.
-                      </p>
                     </div>
 
                     {/* Message Field */}
