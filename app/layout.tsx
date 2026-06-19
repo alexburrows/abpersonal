@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Sans, Newsreader, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const ibmPlexSans = IBM_Plex_Sans({
+  variable: "--font-ibm-plex-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -14,12 +23,25 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Alex Burrows | CTO & Solution Architect",
-  description: "CTO and Solution Architect specialising in TypeScript, React, Next.js, and Drupal. Delivering enterprise solutions for PwC, BBC, Pfizer, Toyota, and more.",
-  keywords: ["Alex Burrows", "CTO", "Solution Architect", "Technical Leadership", "TypeScript", "React", "Next.js", "Drupal", "Enterprise Solutions", "Web Development"],
+  description:
+    "CTO and Solution Architect with over 20 years' experience building enterprise platforms for PwC, BBC, Pfizer, Toyota, and others. TypeScript, React, Next.js, Drupal, and Laravel.",
+  keywords: [
+    "Alex Burrows",
+    "CTO",
+    "Solution Architect",
+    "Technical Leadership",
+    "TypeScript",
+    "React",
+    "Next.js",
+    "Drupal",
+    "Laravel",
+    "Enterprise Solutions",
+  ],
   authors: [{ name: "Alex Burrows" }],
   openGraph: {
     title: "Alex Burrows | CTO & Solution Architect",
-    description: "CTO and Solution Architect delivering enterprise solutions for global brands including PwC, BBC, Pfizer, and Toyota.",
+    description:
+      "CTO and Solution Architect with over 20 years' experience building enterprise platforms for global organisations.",
     type: "website",
   },
 };
@@ -29,11 +51,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const fontVariables = `${ibmPlexSans.variable} ${newsreader.variable} ${geistMono.variable}`;
+
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en-GB" className={fontVariables} suppressHydrationWarning>
+      <body className="font-sans antialiased" suppressHydrationWarning>
         {children}
       </body>
     </html>

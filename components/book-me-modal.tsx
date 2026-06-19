@@ -1,32 +1,19 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { 
-  faCalendar,
-  faEnvelope,
-  faUser,
-  faBuilding,
-  faPaperPlane,
+import {
   faTimes,
   faCheckCircle,
   faTriangleExclamation,
-  faArrowUp
 } from "@fortawesome/free-solid-svg-icons";
-import gsap from "gsap";
 
-const FORM_NAME = "consultation";
 const initialFormState = {
   name: "",
   email: "",
   company: "",
-  message: ""
+  message: "",
 };
-
-const encode = (data: Record<string, string>) =>
-  Object.keys(data)
-    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-    .join("&");
 
 export default function BookMeModal() {
   const [isVisible, setIsVisible] = useState(false);
@@ -36,10 +23,6 @@ export default function BookMeModal() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [honeypot, setHoneypot] = useState("");
   const [formData, setFormData] = useState(initialFormState);
-  const [showScrollTop, setShowScrollTop] = useState(false);
-  const buttonTextRef = useRef<HTMLSpanElement>(null);
-  const hasMeasuredButtonText = useRef(false);
-  const buttonTextWidthRef = useRef(0);
 
   const showDrawer = useCallback(() => {
     setIsVisible(true);
@@ -64,45 +47,6 @@ export default function BookMeModal() {
     return () => window.removeEventListener("open-consultation-modal", handleOpen);
   }, [showDrawer]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 320);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const textEl = buttonTextRef.current;
-    if (!textEl || hasMeasuredButtonText.current) {
-      return;
-    }
-
-    buttonTextWidthRef.current = textEl.scrollWidth;
-    gsap.set(textEl, {
-      width: showScrollTop ? 0 : buttonTextWidthRef.current,
-      marginLeft: showScrollTop ? 0 : 12,
-      opacity: showScrollTop ? 0 : 1
-    });
-    hasMeasuredButtonText.current = true;
-  }, [showScrollTop]);
-
-  useEffect(() => {
-    const textEl = buttonTextRef.current;
-    if (!textEl || !hasMeasuredButtonText.current) {
-      return;
-    }
-
-    gsap.to(textEl, {
-      width: showScrollTop ? 0 : buttonTextWidthRef.current,
-      marginLeft: showScrollTop ? 0 : 12,
-      opacity: showScrollTop ? 0 : 1,
-      duration: 0.35,
-      ease: "power2.out"
-    });
-  }, [showScrollTop]);
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (honeypot) {
@@ -113,146 +57,108 @@ export default function BookMeModal() {
     setErrorMessage(null);
 
     try {
-      // Submit directly to Netlify Forms endpoint
-      // Netlify will process forms submitted to the site root with form-name
-      const response = await fetch("/", {
+      const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode({
-          "form-name": FORM_NAME,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
           ...formData,
-          "bot-field": honeypot
-        })
+          honeypot,
+        }),
       });
 
+      const result = await response.json().catch(() => ({}));
+
       if (!response.ok) {
-        throw new Error("Form submission failed");
+        throw new Error(
+          typeof result.error === "string"
+            ? result.error
+            : "Form submission failed"
+        );
       }
 
       setIsSubmitted(true);
       setFormData(initialFormState);
       window.setTimeout(() => {
         hideDrawer();
-      }, 2500);
-    } catch {
-      setErrorMessage("Something went wrong while sending your message. Please try again.");
+      }, 10000);
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong sending your message. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  };
+  const inputClasses =
+    "w-full border-b border-border bg-transparent py-2.5 text-sm text-text-primary outline-none transition-colors placeholder:text-text-muted focus:border-accent-bright";
 
   return (
     <>
-      {/* Floating Consultation Button */}
-      <div className="fixed bottom-6 right-6 z-40 sm:bottom-8 sm:right-8">
-        <div
-          className={`flex overflow-hidden rounded-2xl border-2 border-white/10 bg-black/60 shadow-2xl transition-transform duration-300 ${
-            showScrollTop ? "hover:scale-105" : "hover:scale-110"
-          }`}
-        >
-          {showScrollTop && (
-            <button
-              type="button"
-              onClick={scrollToTop}
-              className="flex items-center justify-center border-r border-white/10 bg-gradient-to-b from-black via-slate-950 to-slate-800 px-4 py-4 text-white transition duration-300 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-              aria-label="Scroll to top"
-            >
-              <FontAwesomeIcon icon={faArrowUp} className="h-5 w-5" />
-            </button>
-          )}
-          <button
-            onClick={showDrawer}
-            data-book-me-modal
-            className="group flex flex-1 items-center bg-gradient-to-b from-black via-slate-950 to-slate-800 px-6 py-4 font-bold text-white transition duration-300 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-            aria-label="Book a consultation"
-          >
-            <FontAwesomeIcon icon={faCalendar} className="h-5 w-5 transition-transform group-hover:rotate-12" />
-            <span
-              ref={buttonTextRef}
-              className="ml-3 inline-flex items-center overflow-hidden whitespace-nowrap"
-              style={{ willChange: "width, margin-left, opacity" }}
-            >
-              <span className="hidden text-base sm:inline">Book Consultation</span>
-              <span className="text-sm sm:hidden">Book</span>
-            </span>
-          </button>
-        </div>
-      </div>
+      <button
+        type="button"
+        onClick={showDrawer}
+        data-book-me-modal
+        className="btn btn-primary fixed bottom-6 right-6 z-40 hidden sm:inline-flex"
+        aria-label="Open contact form"
+      >
+        Contact
+      </button>
 
       {isVisible && (
-        <div className="fixed inset-0 z-[60] flex justify-end">
+        <div className="fixed inset-0 z-50 flex justify-end">
           <div
-            className={`absolute inset-0 bg-slate-900/80 backdrop-blur-sm transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
+            className={`absolute inset-0 bg-background/80 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
             onClick={hideDrawer}
             aria-hidden="true"
           />
 
           <aside
-            className={`relative z-[70] flex h-full w-full max-w-xl flex-col overflow-y-auto bg-slate-950 shadow-2xl transition-transform duration-300 ease-out ${
+            className={`relative z-10 flex h-full w-full max-w-md flex-col overflow-y-auto border-l border-border bg-surface transition-transform duration-300 ease-out ${
               isOpen ? "translate-x-0" : "translate-x-full"
             }`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="consultation-drawer-title"
           >
-            {/* Close Button */}
-            <button
-              onClick={hideDrawer}
-              className="absolute right-5 top-5 z-10 rounded-xl p-3 text-slate-100 transition-all duration-200 hover:scale-110 hover:bg-white/10"
-              aria-label="Close consultation form"
-            >
-              <FontAwesomeIcon icon={faTimes} className="h-6 w-6" />
-            </button>
-
-            {/* Header */}
-            <div className="p-8 sm:p-10">
-              <div className="relative overflow-hidden text-white">
-                <div className="absolute right-0 top-0 h-24 w-24" />
-                <div className="relative flex items-start gap-4">
-                  <div>
-                    <h2 id="consultation-drawer-title" className="mb-2 text-3xl font-extrabold text-white sm:text-4xl">
-                      Book a Consultation
-                    </h2>
-                    <p className="text-lg font-medium text-white/90">
-                      Let&apos;s discuss your next project.
-                    </p>
-                  </div>
-                </div>
+            <div className="flex items-start justify-between border-b border-border px-6 py-5">
+              <div>
+                <h2
+                  id="consultation-drawer-title"
+                  className="text-base font-medium"
+                >
+                  Get in touch
+                </h2>
+                <p className="mt-1 text-sm text-text-muted">
+                  I usually reply within one working day.
+                </p>
               </div>
+              <button
+                type="button"
+                onClick={hideDrawer}
+                className="p-1 text-text-muted hover:text-text-primary"
+                aria-label="Close form"
+              >
+                <FontAwesomeIcon icon={faTimes} className="h-4 w-4" />
+              </button>
             </div>
 
-            {/* Content */}
-            <div className="flex-1 space-y-6 overflow-y-auto p-8 sm:p-10 text-slate-100">
+            <div className="flex-1 px-6 py-6">
               {!isSubmitted ? (
                 <>
-                  <p className="text-lg font-medium leading-relaxed text-slate-200">
-                    Interested in enterprise solutions, technical leadership, or AI integration? Fill out the form
-                    below and I&apos;ll get back to you to arrange a consultation.
-                  </p>
-
-                  <form
-                    name={FORM_NAME}
-                    method="POST"
-                    onSubmit={handleSubmit}
-                    className="space-y-5"
-                  >
-                    <input type="hidden" name="form-name" value={FORM_NAME} />
-                    <div className="hidden">
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="hidden" aria-hidden="true">
                       <label>
                         Do not fill this in:
                         <input
@@ -265,11 +171,12 @@ export default function BookMeModal() {
                       </label>
                     </div>
 
-                    {/* Name Field */}
                     <div>
-                      <label htmlFor="name" className="mb-2 block text-sm font-bold text-slate-200">
-                        <FontAwesomeIcon icon={faUser} className="mr-2 h-4 w-4 text-blue-300" />
-                        Your Name *
+                      <label
+                        htmlFor="name"
+                        className="mb-1 block text-xs text-text-muted"
+                      >
+                        Name
                       </label>
                       <input
                         type="text"
@@ -278,15 +185,16 @@ export default function BookMeModal() {
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full rounded-xl border-2 border-slate-700 bg-slate-900/40 px-4 py-3 font-medium text-white outline-none transition-all placeholder-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20"
+                        className={inputClasses}
                       />
                     </div>
 
-                    {/* Email Field */}
                     <div>
-                      <label htmlFor="email" className="mb-2 block text-sm font-bold text-slate-200">
-                        <FontAwesomeIcon icon={faEnvelope} className="mr-2 h-4 w-4 text-blue-200" />
-                        Email Address *
+                      <label
+                        htmlFor="email"
+                        className="mb-1 block text-xs text-text-muted"
+                      >
+                        Email
                       </label>
                       <input
                         type="email"
@@ -295,14 +203,15 @@ export default function BookMeModal() {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full rounded-xl border-2 border-slate-700 bg-slate-900/40 px-4 py-3 font-medium text-white outline-none transition-all placeholder-slate-400 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/20"
+                        className={inputClasses}
                       />
                     </div>
 
-                    {/* Company Field */}
                     <div>
-                      <label htmlFor="company" className="mb-2 block text-sm font-bold text-slate-200">
-                        <FontAwesomeIcon icon={faBuilding} className="mr-2 h-4 w-4 text-sky-300" />
+                      <label
+                        htmlFor="company"
+                        className="mb-1 block text-xs text-text-muted"
+                      >
                         Company
                       </label>
                       <input
@@ -311,55 +220,59 @@ export default function BookMeModal() {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full rounded-xl border-2 border-slate-700 bg-slate-900/40 px-4 py-3 font-medium text-white outline-none transition-all placeholder-slate-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/20"
+                        className={inputClasses}
                       />
                     </div>
 
-                    {/* Message Field */}
                     <div>
-                      <label htmlFor="message" className="mb-2 block text-sm font-bold text-slate-200">
-                        <FontAwesomeIcon icon={faPaperPlane} className="mr-2 h-4 w-4 text-blue-200" />
-                        Project Details *
+                      <label
+                        htmlFor="message"
+                        className="mb-1 block text-xs text-text-muted"
+                      >
+                        Message
                       </label>
                       <textarea
                         id="message"
                         name="message"
                         required
-                        rows={5}
+                        rows={4}
                         value={formData.message}
                         onChange={handleChange}
-                        className="w-full resize-none rounded-xl border-2 border-slate-700 bg-slate-900/40 px-4 py-3 font-medium text-white outline-none transition-all placeholder-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20"
-                        placeholder="Tell me about your project, timeline, and what you're looking for..."
+                        className={`${inputClasses} resize-none`}
+                        placeholder="A short summary of your project or enquiry..."
                       />
                     </div>
 
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="group relative flex w-full items-center justify-center gap-3 rounded-xl border-2 border-white/30 px-8 py-5 text-lg font-bold text-white transition-all duration-300 hover:border-white/60 hover:scale-105 hover:shadow-2xl hover:shadow-blue-800/50 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="btn btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      <FontAwesomeIcon icon={faPaperPlane} className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                      {isSubmitting ? "Sending..." : "Send Consultation Request"}
+                      {isSubmitting ? "Sending..." : "Send message"}
                     </button>
                   </form>
 
                   {errorMessage && (
-                    <div className="flex items-center justify-center gap-3 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-300">
-                      <FontAwesomeIcon icon={faTriangleExclamation} className="h-4 w-4" />
-                      <span>{errorMessage}</span>
+                    <div className="mt-4 flex items-center gap-2 text-sm text-red-400">
+                      <FontAwesomeIcon
+                        icon={faTriangleExclamation}
+                        className="h-3.5 w-3.5 shrink-0"
+                      />
+                      {errorMessage}
                     </div>
                   )}
                 </>
               ) : (
-                <div className="flex flex-col items-center justify-center py-16 text-center text-slate-100">
-                  <div className="mb-6 inline-flex rounded-full bg-emerald-500/10 p-4">
-                    <FontAwesomeIcon icon={faCheckCircle} className="h-12 w-12 text-emerald-400" />
-                  </div>
-                  <h3 className="mb-3 text-2xl font-extrabold text-white">
-                    Message Sent!
-                  </h3>
-                  <p className="max-w-md text-base font-medium text-slate-300">
-                    Thank you for reaching out. I&apos;ll respond within 24 hours.
+                <div className="py-8">
+                  <FontAwesomeIcon
+                    icon={faCheckCircle}
+                    className="h-6 w-6 text-emerald-500"
+                  />
+                  <p className="mt-3 text-sm font-medium text-text-primary">
+                    Message sent
+                  </p>
+                  <p className="mt-1 text-sm text-text-muted">
+                    Thank you. I will be in touch shortly.
                   </p>
                 </div>
               )}
@@ -370,4 +283,3 @@ export default function BookMeModal() {
     </>
   );
 }
-
