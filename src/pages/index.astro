@@ -1,0 +1,37 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header";
+import ParallaxWrapper from "@/components/ParallaxWrapper";
+import BookMeModal from "@/components/BookMeModal";
+import Footer from "@/components/Footer.astro";
+import Hero from "@/components/sections/Hero.astro";
+import Clients from "@/components/sections/Clients.astro";
+import Expertise from "@/components/sections/Expertise.astro";
+import Services from "@/components/sections/Services.astro";
+import Drupal from "@/components/sections/Drupal.astro";
+import AI from "@/components/sections/AI.astro";
+import TechStack from "@/components/sections/TechStack.astro";
+import Book from "@/components/sections/Book.astro";
+import Contact from "@/components/sections/Contact.astro";
+---
+
+<Layout>
+  <div class="relative min-h-screen bg-background text-text-primary">
+    <Header client:load />
+    <ParallaxWrapper client:load>
+      <main>
+        <Hero />
+        <Clients />
+        <Expertise />
+        <Services />
+        <Drupal />
+        <AI />
+        <TechStack />
+        <Book />
+        <Contact />
+      </main>
+    </ParallaxWrapper>
+    <Footer />
+    <BookMeModal client:load />
+  </div>
+</Layout>

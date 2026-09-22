@@ -1,5 +1,3 @@
-"use client";
-
 type FooterEmailButtonProps = {
   className?: string;
 };

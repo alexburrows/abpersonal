@@ -1,0 +1,57 @@
+---
+import { FooterEmailButton } from "@/components/FooterEmailButton";
+
+const currentYear = new Date().getFullYear();
+
+const navLinks = [
+  { name: "Expertise", href: "#expertise" },
+  { name: "Services", href: "#services" },
+  { name: "Drupal", href: "#drupal" },
+  { name: "Technology", href: "#tech-stack" },
+  { name: "Contact", href: "#contact" },
+];
+---
+
+<footer class="bg-surface">
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+      <div>
+        <p class="text-sm font-medium text-text-primary">Alex Burrows</p>
+        <p class="mt-2 text-sm text-text-muted">
+          CTO and Solution Architect · Hampshire, UK
+        </p>
+        <p class="mt-1 text-sm text-text-muted">
+          <FooterEmailButton client:load className="link text-sm" />
+        </p>
+      </div>
+
+      <nav aria-label="Footer">
+        <ul class="flex flex-wrap gap-x-5 gap-y-2 text-sm text-text-muted">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a href={link.href} class="link-subtle text-sm">
+                  {link.name}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a
+              href="https://digidrop.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="link-subtle text-sm"
+            >
+              Digidrop Ltd
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <p class="mt-10 border-t border-border-subtle pt-6 text-xs text-text-muted">
+      © {currentYear} Alex Burrows
+    </p>
+  </div>
+</footer>
