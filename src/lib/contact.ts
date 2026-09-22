@@ -1,7 +1,5 @@
 import { Resend } from "resend";
 
-const CONTACT_TO = import.meta.env.CONTACT_TO_EMAIL ?? "alex@alexburrows.net";
-
 type ContactPayload = {
   name: string;
   email: string;
@@ -9,6 +7,14 @@ type ContactPayload = {
   message: string;
   honeypot?: string;
 };
+
+function getEnv(name: string): string | undefined {
+  if (typeof process !== "undefined" && process.env[name]) {
+    return process.env[name];
+  }
+
+  return import.meta.env[name];
+}
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -28,8 +34,9 @@ function escapeHtml(value: string): string {
 }
 
 export async function handleContactPost(request: Request): Promise<Response> {
-  const apiKey = import.meta.env.RESEND_API_KEY;
-  const fromEmail = import.meta.env.RESEND_FROM_EMAIL;
+  const apiKey = getEnv("RESEND_API_KEY");
+  const fromEmail = getEnv("RESEND_FROM_EMAIL");
+  const contactTo = getEnv("CONTACT_TO_EMAIL") ?? "alex@alexburrows.net";
 
   if (!apiKey || !fromEmail) {
     console.error(
@@ -96,7 +103,7 @@ export async function handleContactPost(request: Request): Promise<Response> {
   try {
     const { error } = await resend.emails.send({
       from: fromEmail,
-      to: CONTACT_TO,
+      to: contactTo,
       replyTo: email,
       subject,
       text,
@@ -106,7 +113,7 @@ export async function handleContactPost(request: Request): Promise<Response> {
     if (error) {
       console.error("Resend error:", error);
 
-      const isDev = import.meta.env.DEV;
+      const isDev = import.meta.env?.DEV;
       const isDomainError =
         error.name === "validation_error" &&
         typeof error.message === "string" &&

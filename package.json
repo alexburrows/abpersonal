@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -10,8 +13,8 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@astrojs/netlify": "^6.2.3",
     "@astrojs/react": "^4.2.1",
+    "@netlify/functions": "^5.1.2",
     "@fontsource/geist-mono": "^5.2.5",
     "@fontsource/ibm-plex-sans": "^5.2.5",
     "@fontsource/newsreader": "^5.2.5",
