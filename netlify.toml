@@ -8,3 +8,8 @@
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
+
+# Disable the Next.js plugin still enabled in the Netlify UI from the old stack.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+  enabled = false
