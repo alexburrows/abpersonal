@@ -1,0 +1,71 @@
+---
+const expertiseAreas = [
+  {
+    title: "Technical leadership",
+    description:
+      "Engineering standards, mentoring, and architectural decisions that stand up in production.",
+  },
+  {
+    title: "Solution architecture",
+    description:
+      "Systems that are secure, scalable, and maintainable when requirements are complicated.",
+  },
+  {
+    title: "Full-stack delivery",
+    description:
+      "I write code as well as design systems — frontend, backend, and infrastructure.",
+  },
+  {
+    title: "Enterprise operations",
+    description:
+      "Performance, security, compliance, and DevOps for platforms that run reliably every day.",
+  },
+];
+---
+
+<section
+  id="expertise"
+  data-parallax-section
+  class="relative overflow-hidden border-b border-border"
+>
+  <div
+    data-parallax-bg
+    class="parallax-glow parallax-glow--centre"
+    aria-hidden="true"
+  />
+
+  <div class="relative z-10 mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+    <div class="section-grid">
+      <div data-parallax-sticky class="lg:sticky lg:top-24 lg:self-start">
+        <span data-parallax-line class="parallax-line" aria-hidden="true"></span>
+        <p class="section-label">Expertise</p>
+        <h2 class="section-title">Leadership, architecture, and delivery.</h2>
+        <p class="mt-4 text-sm leading-relaxed text-text-secondary">
+          Twenty years means knowing what works at scale — and what causes
+          expensive problems later.
+        </p>
+      </div>
+
+      <ol data-parallax-stagger class="divide-rows list-none p-0">
+        {
+          expertiseAreas.map((area, index) => (
+            <li
+              data-parallax-item
+              class="grid gap-3 sm:grid-cols-[2rem_1fr]"
+            >
+              <span class="font-mono text-sm text-text-muted">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <h3 class="text-base font-medium">{area.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-text-secondary">
+                  {area.description}
+                </p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>

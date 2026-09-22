@@ -1,5 +1,3 @@
-"use client";
-
 import { useCallback, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -44,7 +42,23 @@ export default function BookMeModal() {
   useEffect(() => {
     const handleOpen = () => showDrawer();
     window.addEventListener("open-consultation-modal", handleOpen);
-    return () => window.removeEventListener("open-consultation-modal", handleOpen);
+    return () =>
+      window.removeEventListener("open-consultation-modal", handleOpen);
+  }, [showDrawer]);
+
+  useEffect(() => {
+    const handleTriggerClick = (event: MouseEvent) => {
+      const target = (event.target as HTMLElement).closest(
+        "[data-open-contact]"
+      );
+      if (target) {
+        event.preventDefault();
+        showDrawer();
+      }
+    };
+
+    document.addEventListener("click", handleTriggerClick);
+    return () => document.removeEventListener("click", handleTriggerClick);
   }, [showDrawer]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

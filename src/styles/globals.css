@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+:root {
+  --font-ibm-plex-sans: "IBM Plex Sans", sans-serif;
+  --font-newsreader: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-geist-mono: "Geist Mono", ui-monospace, monospace;
+}
+
 @theme inline {
   --font-sans: var(--font-ibm-plex-sans);
   --font-serif: var(--font-newsreader);
@@ -74,7 +80,6 @@ body {
   }
 }
 
-/* Editorial section grid — label column + content column */
 .section-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -114,7 +119,6 @@ body {
   margin-top: 1.75rem;
 }
 
-/* Links and buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -213,8 +217,6 @@ body {
   content: " →";
 }
 
-
-/* Scroll progress */
 .scroll-progress {
   position: fixed;
   left: 0;
@@ -234,7 +236,6 @@ body {
   transform-origin: top;
 }
 
-/* Fixed parallax atmosphere */
 .parallax-layer {
   position: absolute;
   border-radius: 50%;
@@ -266,7 +267,6 @@ body {
   background: color-mix(in srgb, var(--color-text-muted) 12%, transparent);
 }
 
-/* Section ambient glow — parallaxed inside each section */
 .parallax-glow {
   position: absolute;
   pointer-events: none;

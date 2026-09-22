@@ -1,6 +1,3 @@
-"use client";
-
-import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -27,10 +24,7 @@ export default function Header() {
   ];
 
   const openContact = () => {
-    const modal = document.querySelector("[data-book-me-modal]");
-    if (modal) {
-      (modal as HTMLElement).click();
-    }
+    window.dispatchEvent(new CustomEvent("open-consultation-modal"));
   };
 
   const handleNavClick = () => {
@@ -46,15 +40,15 @@ export default function Header() {
       }`}
     >
       <nav className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="font-heading text-sm font-semibold">
+        <a href="/" className="font-heading text-sm font-semibold">
           Alex Burrows
-        </Link>
+        </a>
 
         <div className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="link-nav text-sm">
+            <a key={link.href} href={link.href} className="link-nav text-sm">
               {link.label}
-            </Link>
+            </a>
           ))}
         </div>
 
@@ -86,13 +80,13 @@ export default function Header() {
           <ul className="px-4 py-3">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <Link
+                <a
                   href={link.href}
                   onClick={handleNavClick}
                   className="link-nav block py-2.5 text-sm"
                 >
                   {link.label}
-                </Link>
+                </a>
               </li>
             ))}
             <li className="pt-2">
