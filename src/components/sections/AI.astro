@@ -1,75 +1,44 @@
-<section
-  data-parallax-section
-  class="relative overflow-hidden border-b border-border bg-surface/80 backdrop-blur-sm"
->
-  <div
-    data-parallax-bg
-    class="parallax-glow parallax-glow--right"
-    aria-hidden="true"
-  />
+---
+import SectionIntro from "@/components/SectionIntro.astro";
+---
 
-  <div class="relative z-10 mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-    <div class="section-grid">
-      <div data-parallax-sticky class="lg:sticky lg:top-24 lg:self-start">
-        <span data-parallax-line class="parallax-line" aria-hidden="true"></span>
-        <p class="section-label">AI</p>
-        <h2 class="section-title">Practical use, not hype.</h2>
-      </div>
+<section class="section-pad">
+  <div class="shell">
+    <SectionIntro
+      index="05"
+      label="AI"
+      title="Practical use, not hype."
+      description="Production software, not demos that never ship."
+    />
 
-      <div data-parallax-reveal class="space-y-8">
-        <p class="max-w-2xl text-sm leading-[1.7] text-text-secondary">
-          I use AI where it solves a clear problem — saving time, improving a
-          workflow, or making data easier to use. The aim is production software,
-          not a demo that never ships.
-        </p>
+    <p class="prose-block max-w-2xl">
+      I use AI where it solves a clear problem: saving time, improving a workflow,
+      or making data easier to use.
+    </p>
 
-        <dl data-parallax-stagger class="divide-rows max-w-2xl">
-          <div
-            data-parallax-item
-            class="grid gap-1 sm:grid-cols-[9rem_1fr]"
-          >
-            <dt class="text-sm text-text-primary">Integration</dt>
-            <dd class="text-sm text-text-secondary">
-              GPT, Claude, LLama, and other models in existing products with
-              sensible guardrails.
-            </dd>
-          </div>
-          <div
-            data-parallax-item
-            class="grid gap-1 sm:grid-cols-[9rem_1fr]"
-          >
-            <dt class="text-sm text-text-primary">Automation</dt>
-            <dd class="text-sm text-text-secondary">
-              Document handling, data extraction, internal support workflows.
-            </dd>
-          </div>
-          <div
-            data-parallax-item
-            class="grid gap-1 sm:grid-cols-[9rem_1fr]"
-          >
-            <dt class="text-sm text-text-primary">Knowledge</dt>
-            <dd class="text-sm text-text-secondary">
-              Search over your own data with RAG and vector storage where needed.
-            </dd>
-          </div>
-          <div
-            data-parallax-item
-            class="grid gap-1 sm:grid-cols-[9rem_1fr]"
-          >
-            <dt class="text-sm text-text-primary">Strategy</dt>
-            <dd class="text-sm text-text-secondary">
-              Working out where AI is worth the effort — and where it is not.
-            </dd>
-          </div>
-        </dl>
+    <ul class="mt-10 grid max-w-3xl gap-6 sm:grid-cols-2">
+      <li class="text-base leading-relaxed text-text-secondary">
+        <span class="font-semibold text-heading">Integration.</span>
+        GPT, Claude, LLama, and other models in existing products with sensible
+        guardrails.
+      </li>
+      <li class="text-base leading-relaxed text-text-secondary">
+        <span class="font-semibold text-heading">Automation.</span>
+        Document handling, data extraction, internal support workflows.
+      </li>
+      <li class="text-base leading-relaxed text-text-secondary">
+        <span class="font-semibold text-heading">Knowledge.</span>
+        Search over your own data with RAG and vector storage where needed.
+      </li>
+      <li class="text-base leading-relaxed text-text-secondary">
+        <span class="font-semibold text-heading">Strategy.</span>
+        Working out where AI is worth the effort, and where it is not.
+      </li>
+    </ul>
 
-        <p
-          class="max-w-2xl border-l-2 border-accent/40 pl-4 font-mono text-xs leading-relaxed text-text-muted"
-        >
-          OpenAI · Claude · LangChain · vector DBs · RAG · fine-tuning · prompt
-          engineering
-        </p>
-      </div>
-    </div>
+    <p class="prose-block mt-8 max-w-2xl font-mono text-xs text-text-muted">
+      OpenAI · Claude · LangChain · vector DBs · RAG · fine-tuning · prompt
+      engineering
+    </p>
   </div>
 </section>

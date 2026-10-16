@@ -1,37 +1,32 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header";
-import ParallaxWrapper from "@/components/ParallaxWrapper";
+import SiteHeader from "@/components/SiteHeader";
 import BookMeModal from "@/components/BookMeModal";
 import Footer from "@/components/Footer.astro";
 import Hero from "@/components/sections/Hero.astro";
+import Help from "@/components/sections/Help.astro";
+import Experience from "@/components/sections/Experience.astro";
 import Clients from "@/components/sections/Clients.astro";
-import Expertise from "@/components/sections/Expertise.astro";
-import Services from "@/components/sections/Services.astro";
 import Drupal from "@/components/sections/Drupal.astro";
-import AI from "@/components/sections/AI.astro";
 import TechStack from "@/components/sections/TechStack.astro";
-import Book from "@/components/sections/Book.astro";
 import Contact from "@/components/sections/Contact.astro";
+import PageAnimations from "@/components/PageAnimations";
 ---
 
 <Layout>
-  <div class="relative min-h-screen bg-background text-text-primary">
-    <Header client:load />
-    <ParallaxWrapper client:load>
-      <main>
-        <Hero />
-        <Clients />
-        <Expertise />
-        <Services />
-        <Drupal />
-        <AI />
-        <TechStack />
-        <Book />
-        <Contact />
-      </main>
-    </ParallaxWrapper>
+  <div class="min-h-screen bg-background text-foreground">
+    <SiteHeader client:load />
+    <main class="page-main">
+      <Hero />
+      <Help />
+      <Experience />
+      <Clients />
+      <Drupal />
+      <TechStack />
+      <Contact />
+    </main>
     <Footer />
     <BookMeModal client:load />
+    <PageAnimations client:load />
   </div>
 </Layout>

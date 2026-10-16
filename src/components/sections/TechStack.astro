@@ -18,42 +18,24 @@ const technologies: [string, string][] = [
 ];
 ---
 
-<section
-  id="tech-stack"
-  data-parallax-section
-  class="relative overflow-hidden border-b border-border"
->
-  <div
-    data-parallax-bg
-    class="parallax-glow parallax-glow--centre"
-    aria-hidden="true"
-  />
+<section id="tech-stack" class="section-pad section-surface page-section">
+  <div class="shell">
+    <header class="section-heading" data-reveal>
+      <h2 class="section-heading__title font-heading">Technology</h2>
+      <p class="section-heading__desc">
+        Chosen for the project and the team, not personal preference.
+      </p>
+    </header>
 
-  <div class="relative z-10 mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-    <div class="section-grid">
-      <div data-parallax-sticky class="lg:sticky lg:top-24 lg:self-start">
-        <span data-parallax-line class="parallax-line" aria-hidden="true"></span>
-        <p class="section-label">Technology</p>
-        <h2 class="section-title">Stack.</h2>
-        <p class="mt-4 text-sm leading-relaxed text-text-secondary">
-          What I use on client work and internal products. Chosen for the
-          project, not preference.
-        </p>
-      </div>
-
-      <dl data-parallax-stagger class="divide-rows font-mono text-sm">
-        {
-          technologies.map(([category, items]) => (
-            <div
-              data-parallax-item
-              class="grid gap-2 lg:grid-cols-[8rem_1fr]"
-            >
-              <dt class="text-text-muted">{category}</dt>
-              <dd class="leading-relaxed text-text-secondary">{items}</dd>
-            </div>
-          ))
-        }
-      </dl>
-    </div>
+    <dl class="tech-list" data-reveal-stagger>
+      {
+        technologies.map(([category, items]) => (
+          <div class="tech-list__row">
+            <dt class="tech-list__label">{category}</dt>
+            <dd class="tech-list__items">{items}</dd>
+          </div>
+        ))
+      }
+    </dl>
   </div>
 </section>

@@ -1,0 +1,21 @@
+---
+interface Props {
+  index: string;
+  label: string;
+  title: string;
+  description?: string;
+  headingLevel?: "h1" | "h2";
+}
+
+const { index, label, title, description, headingLevel = "h2" } = Astro.props;
+const HeadingTag = headingLevel;
+---
+
+<header class="section-intro">
+  <div class="section-intro__row">
+    <span class="section-intro__index">{index}</span>
+    <p class="section-intro__label">{label}</p>
+  </div>
+  <HeadingTag class="section-intro__title">{title}</HeadingTag>
+  {description && <p class="section-intro__desc">{description}</p>}
+</header>

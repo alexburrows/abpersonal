@@ -1,0 +1,61 @@
+---
+const helpItems = [
+  {
+    index: "01",
+    title: "Technical leadership",
+    detail: "CTO-level direction, team standards, and delivery accountability.",
+  },
+  {
+    index: "02",
+    title: "Solution architecture",
+    detail: "Secure, scalable systems for regulated and high-traffic environments.",
+  },
+  {
+    index: "03",
+    title: "Enterprise delivery",
+    detail: "Drupal, Laravel, TypeScript, and modern frontends in production.",
+  },
+];
+---
+
+<section id="expertise" class="section-pad page-section">
+  <div class="shell help-section">
+    <div class="help-section__copy" data-reveal-x>
+      <h2 class="help-section__heading font-heading">What I help with</h2>
+      <p class="help-section__text">
+        Senior technical leadership for organisations that cannot afford fragile
+        platforms, from architecture and roadmaps through to hands-on delivery
+        when the deadline is real.
+      </p>
+      <p class="help-section__text">
+        Engagements are usually consulting, contract leadership, or focused
+        build work alongside your existing team.
+      </p>
+
+      <dl class="help-section__stats">
+        <div>
+          <dt class="help-section__stat-label">Experience</dt>
+          <dd class="help-section__stat-value font-heading">20+ years</dd>
+        </div>
+        <div>
+          <dt class="help-section__stat-label">Enterprise clients</dt>
+          <dd class="help-section__stat-value font-heading">PwC to BBC</dd>
+        </div>
+      </dl>
+    </div>
+
+    <ol class="service-list" data-reveal-stagger>
+      {
+        helpItems.map((item) => (
+          <li class="service-list__item">
+            <span class="service-list__index">{item.index}</span>
+            <div>
+              <h3 class="service-list__title font-heading">{item.title}</h3>
+              <p class="service-list__detail">{item.detail}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
