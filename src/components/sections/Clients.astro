@@ -1,62 +1,39 @@
 ---
 const clients = [
   { name: "PwC", industry: "Professional services" },
-  { name: "Worldpay", industry: "Financial technology" },
-  { name: "BBC", industry: "Media and broadcasting" },
+  { name: "BBC", industry: "Media" },
+  { name: "Worldpay", industry: "Fintech" },
   { name: "Pfizer", industry: "Pharmaceutical" },
   { name: "Toyota", industry: "Automotive" },
-  { name: "IHG", industry: "Hospitality" },
-  { name: "Met Police", industry: "Public sector" },
-  { name: "National Grid", industry: "Energy and utilities" },
-  { name: "Coty", industry: "Cosmetics" },
-  { name: "Travelopia", industry: "Travel" },
+  { name: "National Grid", industry: "Energy" },
 ];
+
+const moreClients = ["IHG", "Met Police", "Coty", "Travelopia"];
 ---
 
-<section
-  data-parallax-section
-  class="relative overflow-hidden border-b border-border bg-surface/80 backdrop-blur-sm"
->
-  <div
-    data-parallax-bg
-    class="parallax-glow parallax-glow--left"
-    aria-hidden="true"
-  />
-
-  <div class="relative z-10 mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-    <div class="section-grid">
-      <div data-parallax-sticky class="lg:sticky lg:top-24 lg:self-start">
-        <span data-parallax-line class="parallax-line" aria-hidden="true"></span>
-        <p class="section-label">Clients</p>
-        <h2 class="section-title">Organisations that need to get it right.</h2>
+<section id="clients" class="section-pad section-surface page-section">
+  <div class="shell">
+    <div class="works-header" data-reveal>
+      <div>
+        <h2 class="works-header__title font-heading">Selected clients</h2>
       </div>
-
-      <div data-parallax-reveal>
-        <p class="max-w-xl text-sm leading-relaxed text-text-secondary">
-          Architecture and delivery for regulated industries and high-traffic
-          public platforms — often where downtime or security failures are not
-          an option.
-        </p>
-
-        <dl
-          data-parallax-stagger
-          class="mt-10 grid gap-x-10 gap-y-5 sm:grid-cols-2"
-        >
-          {
-            clients.map((client) => (
-              <div
-                data-parallax-item
-                class="flex gap-4 sm:block"
-              >
-                <dt class="w-28 shrink-0 text-sm font-medium text-text-primary sm:w-auto">
-                  {client.name}
-                </dt>
-                <dd class="text-sm text-text-muted">{client.industry}</dd>
-              </div>
-            ))
-          }
-        </dl>
-      </div>
+      <a href="#contact" class="link text-sm font-medium">Get in touch</a>
     </div>
+
+    <ul class="client-list" data-reveal-stagger>
+      {
+        clients.map((client) => (
+          <li class="client-list__item">
+            <p class="client-list__name font-heading">{client.name}</p>
+            <p class="client-list__industry">{client.industry}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="works-more" data-reveal>
+      Also {moreClients.join(", ")}, regulated industries and high-traffic public
+      platforms where failure is not an option.
+    </p>
   </div>
 </section>

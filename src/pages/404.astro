@@ -1,18 +1,21 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SiteHeader from "@/components/SiteHeader";
 ---
 
 <Layout title="Page not found | Alex Burrows">
-  <div class="flex min-h-screen items-center justify-center bg-background px-4 text-text-primary">
-    <div class="text-center">
-      <p class="text-sm font-medium uppercase tracking-widest text-text-muted">
-        404
-      </p>
-      <h1 class="mt-3 text-3xl font-semibold">Page not found</h1>
-      <p class="mt-4 text-sm text-text-secondary">
-        The page you are looking for does not exist.
-      </p>
-      <a href="/" class="btn btn-primary mt-8">Return home</a>
-    </div>
+  <div class="min-h-screen bg-background text-foreground">
+    <SiteHeader client:load />
+    <main class="page-main flex min-h-[calc(100vh-4rem)] flex-col justify-center py-16">
+        <div class="shell">
+          <header class="section-heading">
+            <h1 class="section-heading__title">Page not found</h1>
+            <p class="section-heading__desc">
+              The page you are looking for does not exist.
+            </p>
+          </header>
+          <a href="/" class="btn btn-primary mt-8 w-fit link-arrow">Return home</a>
+        </div>
+      </main>
   </div>
 </Layout>

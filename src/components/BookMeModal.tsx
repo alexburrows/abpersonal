@@ -1,5 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { prefersReducedMotion } from "@/lib/motion";
 import {
   faTimes,
   faCheckCircle,
@@ -21,6 +23,13 @@ export default function BookMeModal() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [honeypot, setHoneypot] = useState("");
   const [formData, setFormData] = useState(initialFormState);
+  const panelRef = useRef<HTMLElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    setReducedMotion(prefersReducedMotion());
+  }, []);
 
   const showDrawer = useCallback(() => {
     setIsVisible(true);
@@ -29,6 +38,7 @@ export default function BookMeModal() {
 
   const hideDrawer = () => {
     setIsOpen(false);
+    const delay = prefersReducedMotion() ? 200 : 300;
     window.setTimeout(() => {
       setIsVisible(false);
       setIsSubmitted(false);
@@ -36,8 +46,37 @@ export default function BookMeModal() {
       setErrorMessage(null);
       setHoneypot("");
       setFormData(initialFormState);
-    }, 300);
+    }, delay);
   };
+
+  useLayoutEffect(() => {
+    if (!isVisible) return;
+
+    const panel = panelRef.current;
+    const overlay = overlayRef.current;
+    if (!panel || !overlay) return;
+
+    if (prefersReducedMotion()) {
+      gsap.set([panel, overlay], { clearProps: "all" });
+      return;
+    }
+
+    gsap.killTweensOf([panel, overlay]);
+
+    if (isOpen) {
+      gsap.set(panel, { xPercent: 100 });
+      gsap.set(overlay, { opacity: 0 });
+      gsap
+        .timeline()
+        .to(overlay, { opacity: 1, duration: 0.22, ease: "power2.out" })
+        .to(panel, { xPercent: 0, duration: 0.32, ease: "power2.out" }, 0);
+    } else {
+      gsap
+        .timeline()
+        .to(panel, { xPercent: 100, duration: 0.26, ease: "power2.in" })
+        .to(overlay, { opacity: 0, duration: 0.2, ease: "power2.in" }, 0.06);
+    }
+  }, [isVisible, isOpen]);
 
   useEffect(() => {
     const handleOpen = () => showDrawer();
@@ -116,31 +155,29 @@ export default function BookMeModal() {
   };
 
   const inputClasses =
-    "w-full border-b border-border bg-transparent py-2.5 text-sm text-text-primary outline-none transition-colors placeholder:text-text-muted focus:border-accent-bright";
+    "w-full border-b border-border bg-transparent py-2.5 text-sm text-foreground outline-none transition-colors placeholder:text-text-muted focus:border-accent";
 
   return (
     <>
-      <button
-        type="button"
-        onClick={showDrawer}
-        data-book-me-modal
-        className="btn btn-primary fixed bottom-6 right-6 z-40 hidden sm:inline-flex"
-        aria-label="Open contact form"
-      >
-        Contact
-      </button>
-
       {isVisible && (
         <div className="fixed inset-0 z-50 flex justify-end">
           <div
-            className={`absolute inset-0 bg-background/80 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
+            ref={overlayRef}
+            className={`absolute inset-0 bg-inverse/80 ${
+              reducedMotion
+                ? `transition-opacity duration-200 ease-out ${isOpen ? "opacity-100" : "opacity-0"}`
+                : ""
+            }`}
             onClick={hideDrawer}
             aria-hidden="true"
           />
 
           <aside
-            className={`relative z-10 flex h-full w-full max-w-md flex-col overflow-y-auto border-l border-border bg-surface transition-transform duration-300 ease-out ${
-              isOpen ? "translate-x-0" : "translate-x-full"
+            ref={panelRef}
+            className={`relative z-10 flex h-full w-full max-w-md flex-col overflow-y-auto border-l border-border bg-surface-raised ${
+              reducedMotion
+                ? `transition-transform duration-200 ease-out ${isOpen ? "translate-x-0" : "translate-x-full"}`
+                : ""
             }`}
             role="dialog"
             aria-modal="true"
@@ -150,11 +187,11 @@ export default function BookMeModal() {
               <div>
                 <h2
                   id="consultation-drawer-title"
-                  className="text-base font-medium"
+                  className="text-lg font-semibold text-foreground"
                 >
                   Get in touch
                 </h2>
-                <p className="mt-1 text-sm text-text-muted">
+                <p className="mt-1 text-sm text-muted-foreground">
                   I usually reply within one working day.
                 </p>
               </div>
@@ -267,7 +304,7 @@ export default function BookMeModal() {
                   </form>
 
                   {errorMessage && (
-                    <div className="mt-4 flex items-center gap-2 text-sm text-red-400">
+                    <div className="mt-4 flex items-center gap-2 text-sm text-red-600">
                       <FontAwesomeIcon
                         icon={faTriangleExclamation}
                         className="h-3.5 w-3.5 shrink-0"

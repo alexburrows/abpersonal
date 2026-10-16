@@ -8,7 +8,7 @@ export function FooterEmailButton({ className }: FooterEmailButtonProps) {
   };
 
   const baseClasses =
-    "cursor-pointer bg-transparent text-inherit no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bright focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+    "cursor-pointer bg-transparent p-0 text-inherit transition-colors focus-visible:outline-none";
 
   return (
     <button

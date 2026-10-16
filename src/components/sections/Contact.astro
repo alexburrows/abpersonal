@@ -1,81 +1,24 @@
----
-import { FooterEmailButton } from "@/components/FooterEmailButton";
+<section id="contact" class="section-pad section-band--forest page-section">
+  <div class="shell max-w-2xl">
+    <header class="section-heading" data-reveal>
+      <h2 class="section-heading__title font-heading">Contact</h2>
+      <p class="section-heading__desc">
+        I am open to enterprise projects, technical leadership and consulting.
+      </p>
+    </header>
 
-const links = [
-  {
-    label: "LinkedIn",
-    url: "https://www.linkedin.com/in/alexburrows/",
-  },
-  { label: "GitHub", url: "https://github.com/alexburrows" },
-  { label: "Medium", url: "https://medium.com/@aburrows" },
-  {
-    label: "Drupal.org",
-    url: "https://www.drupal.org/u/aburrows",
-  },
-];
----
+    <p class="prose-block" data-reveal>
+      If you have a platform problem and want someone who has done this work
+      before, send a message. I reply to every serious enquiry.
+    </p>
 
-<section
-  id="contact"
-  data-parallax-section
-  class="relative overflow-hidden border-b border-border"
->
-  <div
-    data-parallax-bg
-    class="parallax-glow parallax-glow--right"
-    aria-hidden="true"
-  />
-
-  <div class="relative z-10 mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-    <div class="section-grid">
-      <div data-parallax-sticky class="lg:sticky lg:top-24 lg:self-start">
-        <span data-parallax-line class="parallax-line" aria-hidden="true"></span>
-        <p class="section-label">Contact</p>
-        <h2 class="section-title">Get in touch.</h2>
-        <p class="mt-4 text-sm leading-relaxed text-text-secondary">
-          Hampshire, United Kingdom
-        </p>
-      </div>
-
-      <div data-parallax-reveal class="max-w-xl">
-        <p class="text-sm leading-relaxed text-text-secondary">
-          Open to enterprise projects, technical leadership, and consulting. If
-          you have a platform problem and want someone who has been there
-          before, drop me a line.
-        </p>
-
-        <p class="mt-8 text-sm">
-          <FooterEmailButton client:load className="link text-base font-semibold" />
-        </p>
-
-        <button
-          type="button"
-          data-open-contact
-          class="btn btn-primary mt-4 link-arrow"
-        >
-          Send a message
-        </button>
-
-        <ul
-          data-parallax-stagger
-          class="mt-12 flex flex-wrap gap-3 border-t border-border pt-8"
-        >
-          {
-            links.map((link) => (
-              <li data-parallax-item>
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn btn-ghost"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </div>
+      <button
+      type="button"
+      data-open-contact
+      class="btn btn-primary btn-primary--on-dark mt-8 link-arrow"
+      data-reveal
+    >
+      Send a message
+    </button>
   </div>
 </section>

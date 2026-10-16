@@ -19,96 +19,67 @@ const services = [
 ];
 ---
 
-<section
-  id="drupal"
-  data-parallax-section
-  class="relative overflow-hidden border-b border-border"
->
-  <div
-    data-parallax-bg
-    class="parallax-glow parallax-glow--left"
-    aria-hidden="true"
-  />
+<section id="drupal" class="section-pad page-section">
+  <div class="shell">
+    <header class="section-heading" data-reveal>
+      <h2 class="section-heading__title font-heading">Drupal specialist since 2007</h2>
+      <p class="section-heading__desc">
+        Module contributor, DrupalCamp organiser, and long-term practitioner on
+        large public-facing estates.
+      </p>
+    </header>
 
-  <div class="relative z-10 mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-    <div class="section-grid">
-      <div data-parallax-sticky class="lg:sticky lg:top-24 lg:self-start">
-        <span data-parallax-line class="parallax-line" aria-hidden="true"></span>
-        <p class="section-label">Drupal</p>
-        <h2 class="section-title">Specialist since 2007.</h2>
-        <ul class="mt-6 space-y-2 text-sm text-text-secondary">
-          <li>Module contributor</li>
-          <li>Drupal 8 Blueprints author</li>
-          <li>DrupalCamp organiser</li>
+    <p class="prose-block max-w-2xl" data-reveal>
+      Drupal has been central to my work for nearly 20 years: module development,
+      migrations, and architecture for busy public-facing sites.
+    </p>
+
+    <div class="mt-10 grid gap-10 lg:grid-cols-2" data-reveal-stagger>
+      <div>
+        <h3 class="subsection-title">Services</h3>
+        <dl class="mt-5 divide-rows">
+          {
+            services.map((service) => (
+              <div>
+                <dt class="text-sm font-semibold text-heading">{service.title}</dt>
+                <dd class="prose-block mt-1 max-w-none">{service.text}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+
+      <div>
+        <h3 class="subsection-title">Community</h3>
+        <ul class="mt-5 space-y-4 prose-block max-w-none">
+          <li>
+            <span class="font-semibold text-heading">DrupalCamp London</span>
+            {": "}organised and led the community's main event (400+ attendees)
+          </li>
+          <li>
+            <span class="font-semibold text-heading">Contrib modules</span>
+            {": "}15+ modules focused on APIs and performance
+          </li>
+          <li>
+            <span class="font-semibold text-heading">Drupal CWG</span>
+            {": "}5+ years on community governance
+          </li>
         </ul>
-        <p class="mt-8 font-mono text-xs leading-relaxed text-text-muted">
-          17+ yrs · 100+ projects
-        </p>
       </div>
+    </div>
 
-      <div data-parallax-reveal class="space-y-12">
-        <p class="text-sm leading-relaxed text-text-secondary">
-          Drupal has been central to my work for nearly 20 years — module
-          development, migrations, and architecture for busy public-facing
-          sites.
-        </p>
-
-        <div>
-          <h3 class="text-sm font-medium">Services</h3>
-          <dl data-parallax-stagger class="mt-5 divide-rows">
-            {
-              services.map((service) => (
-                <div
-                  data-parallax-item
-                  class="grid gap-1 sm:grid-cols-[10rem_1fr]"
-                >
-                  <dt class="text-sm text-text-primary">{service.title}</dt>
-                  <dd class="text-sm text-text-secondary">{service.text}</dd>
-                </div>
-              ))
-            }
-          </dl>
-        </div>
-
-        <div>
-          <h3 class="text-sm font-medium">Community</h3>
-          <ul
-            data-parallax-stagger
-            class="mt-5 space-y-4 text-sm leading-relaxed text-text-secondary"
-          >
-            <li data-parallax-item>
-              <span class="text-text-primary">DrupalCamp London</span>
-              {" — "}organised and led the community's main event (400+ attendees)
-            </li>
-            <li data-parallax-item>
-              <span class="text-text-primary">Contrib modules</span>
-              {" — "}15+ modules focused on APIs and performance
-            </li>
-            <li data-parallax-item>
-              <span class="text-text-primary">Drupal CWG</span>
-              {" — "}5+ years on community governance
-            </li>
-          </ul>
-        </div>
-
-        <div class="flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-8">
-          <button
-            type="button"
-            data-open-contact
-            class="btn btn-primary link-arrow"
-          >
-            Discuss a Drupal project
-          </button>
-          <a
-            href="https://www.drupal.org/u/aburrows"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-secondary self-center"
-          >
-            Drupal.org profile
-          </a>
-        </div>
-      </div>
+    <div class="mt-10 flex flex-wrap gap-3">
+      <button type="button" data-open-contact class="btn btn-primary link-arrow">
+        Discuss a Drupal project
+      </button>
+      <a
+        href="https://www.drupal.org/u/aburrows"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-secondary"
+      >
+        Drupal.org profile
+      </a>
     </div>
   </div>
 </section>
